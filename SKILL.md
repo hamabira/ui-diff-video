@@ -1,5 +1,5 @@
 ---
-name: ui-diff-demo
+name: ui-diff-video
 description: 今回のWeb UI変更を、実画面のBefore/After画像や色付きの短いPlaywright録画でレビュー用に報告する。「差分を動画で」「動作を録画して」「UI変更の証拠を見せて」などの依頼で使う。
 ---
 
@@ -7,7 +7,7 @@ description: 今回のWeb UI変更を、実画面のBefore/After画像や色付�
 
 ## 単体で使う
 
-`ui-diff-demo/` を `references/` ごと配置する。Codex はユーザーの `~/.agents/skills/ui-diff-demo/` を読み、新しい会話で `$ui-diff-demo` と呼び出す。Claude Code は `~/.claude/skills/ui-diff-demo/` を読み、`/ui-diff-demo` で呼び出す。両方で使う場合は同じ実体を参照してよい。既存の発見用リンクがあればそのリンク先を更新する。
+`ui-diff-video/` を `references/` ごと配置する。Codex はユーザーの `~/.agents/skills/ui-diff-video/` を読み、新しい会話で `$ui-diff-video` と呼び出す。Claude Code は `~/.claude/skills/ui-diff-video/` を読み、`/ui-diff-video` で呼び出す。両方で使う場合は同じ実体を参照してよい。既存の発見用リンクがあればそのリンク先を更新する。
 
 録画例には Node.js、Playwright CLI（npm パッケージ `@playwright/cli`）、Chrome が必要。Mac で Node.js 26.12.1、CLI 0.1.25 を使用。導入する場合は `npm install -g @playwright/cli@0.1.25`、Chrome がなければ `playwright-cli install-browser chrome`。既存環境では `playwright-cli --version` で確認する。追加インストールが必要なら利用者に引き継ぐ。GitHub CLI は CLI からの PR 添付時だけ使う。[Playwright CLI](https://github.com/microsoft/playwright-cli)
 
@@ -19,8 +19,8 @@ description: 今回のWeb UI変更を、実画面のBefore/After画像や色付�
 (
   set -eu
   umask 077
-  skill_dir="$HOME/.agents/skills/ui-diff-demo"  # Claude 単独配置なら ~/.claude/skills/ui-diff-demo
-  if [ ! -r "$skill_dir/references/example.js" ]; then skill_dir="$HOME/.claude/skills/ui-diff-demo"; fi
+  skill_dir="$HOME/.agents/skills/ui-diff-video"  # Claude 単独配置なら ~/.claude/skills/ui-diff-video
+  if [ ! -r "$skill_dir/references/example.js" ]; then skill_dir="$HOME/.claude/skills/ui-diff-video"; fi
   test -r "$skill_dir/references/example.js"
   test ! -L "$HOME/UI-Demos" || { echo '保存先がリンクです。非公開の実ディレクトリを選んでください' >&2; exit 1; }
   mkdir -p "$HOME/UI-Demos"
@@ -64,7 +64,7 @@ description: 今回のWeb UI変更を、実画面のBefore/After画像や色付�
 
 ## 動画の保持と片付け
 
-- 適用対象は、このスキルが既定の `~/UI-Demos` 配下に作ったと確認できる動画だけ。今後の実行から適用し、既存の動画・手動保存の動画・他のフォルダには遡及しない。作成した日時と状態（未添付／作業中／保存指定／添付確認済み）を各実行の `status.md` に記録する。例：`ui-diff-demo | 2026-11-23T12:00:00Z | final.webm | 未添付`。添付再生確認後は対象 PR も記す。旧保存先のフォルダや動画は移動・削除しない。所有元や状態が分からないもの、シンボリックリンク、既定の場所の外は掃除しない。
+- 適用対象は、このスキルが既定の `~/UI-Demos` 配下に作ったと確認できる動画だけ。今後の実行から適用し、既存の動画・手動保存の動画・他のフォルダには遡及しない。作成した日時と状態（未添付／作業中／保存指定／添付確認済み）を各実行の `status.md` に記録する。例：`ui-diff-video | 2026-11-23T12:00:00Z | final.webm | 未添付`。添付再生確認後は対象 PR も記す。旧保存先のフォルダや動画は移動・削除しない。所有元や状態が分からないもの、シンボリックリンク、既定の場所の外は掃除しない。
 - PR本文の動画を再生し、添付がローカル最終版と同等で、対象PRの閲覧者が引き続きアクセスできると確認したら、ローカルコピーはその場でゴミ箱へ移してよい。添付URLがあるだけ、ダウンロード期限つきの一時成果物、または再生未確認なら削除せず、未添付扱いにする。
 - 未添付／添付失敗の動画は、確認済みの最終版1本だけを作成から7日保つ。7日以降、次にこのスキルを実行する際に既知の対象だけを点検し、作業中（レビュー・添付待ちを含む）または保存指定のものを除き、Macではゴミ箱へ移す。試し撮り・撮り直し前の版も不要と分かったらゴミ箱へ移す。復元手段がない環境での完全削除、唯一のコピーの完全削除、ゴミ箱を空にする操作は本人に別途確認する。ゴミ箱へ移しただけではディスク容量は解放されない。
 - ファイル名や更新日時だけで判断した一括削除はしない。保持・削除を見送ったときは必要なら理由を報告する。別の保存先や保存期間が明示されたらその指定を優先する。このスキルはバックグラウンドで定時削除をしない。

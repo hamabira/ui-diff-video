@@ -1,17 +1,17 @@
-# ui-diff-demo
+# ui-diff-video
 
 Web UI の変更を Codex や Claude Code に頼んで、レビュー用の画像や短い動画にするスキルです。見た目の変更は同条件の Before / After 画像で、操作の変更は「どこを押したか」を青、「どう変わったか」を緑で示す録画で確認できます。
 
 ## ZIP をダウンロードして使う
 
-1. [ZIP をダウンロード](https://github.com/hamabira/ui-diff-demo/archive/refs/heads/main.zip)して展開します。
-2. `SKILL.md` が直接入っているフォルダ（通常は `ui-diff-demo-main`）を `ui-diff-demo` に改名し、下表の場所にフォルダごと置きます。親の `skills` フォルダがなければ作成してください。`~` は自分のホームフォルダです。Mac の Finder では ⇧⌘G（フォルダへ移動）で配置先の親フォルダを開けます。
+1. [ZIP をダウンロード](https://github.com/hamabira/ui-diff-video/archive/refs/heads/main.zip)して展開します。
+2. `SKILL.md` が直接入っているフォルダ（通常は `ui-diff-video-main`）を `ui-diff-video` に改名し、下表の場所にフォルダごと置きます。親の `skills` フォルダがなければ作成してください。`~` は自分のホームフォルダです。Mac の Finder では ⇧⌘G（フォルダへ移動）で配置先の親フォルダを開けます。
 3. UI を確認したいプロジェクトで**新しい会話**を開き、下表の例を入力します。
 
 | 使うツール | 配置後のファイル | 最初に試す依頼 |
 | --- | --- | --- |
-| Codex | `~/.agents/skills/ui-diff-demo/SKILL.md` | `$ui-diff-demo 同梱サンプルで録画を試して、動画の保存先を教えて` |
-| Claude Code | `~/.claude/skills/ui-diff-demo/SKILL.md` | `/ui-diff-demo 同梱サンプルで録画を試して、動画の保存先を教えて` |
+| Codex | `~/.agents/skills/ui-diff-video/SKILL.md` | `$ui-diff-video 同梱サンプルで録画を試して、動画の保存先を教えて` |
+| Claude Code | `~/.claude/skills/ui-diff-video/SKILL.md` | `/ui-diff-video 同梱サンプルで録画を試して、動画の保存先を教えて` |
 
 `SKILL.md` はエージェントが読む手順書です。`references/` は補助ファイルの置き場で、中の [example.js](references/example.js) が初回確認用の録画サンプルです。`references/` は `SKILL.md` の隣に残してください。
 
@@ -23,14 +23,14 @@ ZIP の代わりに、使うツールのコマンドを実行します（macOS /
 
 ```sh
 mkdir -p ~/.agents/skills
-git clone https://github.com/hamabira/ui-diff-demo.git ~/.agents/skills/ui-diff-demo
+git clone https://github.com/hamabira/ui-diff-video.git ~/.agents/skills/ui-diff-video
 ```
 
 **Claude Code**
 
 ```sh
 mkdir -p ~/.claude/skills
-git clone https://github.com/hamabira/ui-diff-demo.git ~/.claude/skills/ui-diff-demo
+git clone https://github.com/hamabira/ui-diff-video.git ~/.claude/skills/ui-diff-video
 ```
 
 ## 録画を試す
